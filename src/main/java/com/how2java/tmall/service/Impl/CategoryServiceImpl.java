@@ -28,4 +28,10 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.total();
     }
 
+    @Override
+    public void addCategory(Category category) {
+        categoryMapper.addCategory(category);
+
+    }
+
 }

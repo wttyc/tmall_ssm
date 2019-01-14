@@ -1,13 +1,17 @@
 package com.how2java.tmall.controller;
 
 import com.how2java.tmall.pojo.Category;
+import com.how2java.tmall.pojo.UploadedImageFile;
 import com.how2java.tmall.service.CategoryService;
 import com.how2java.tmall.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -28,6 +32,17 @@ public class CategoryController {
         model.addAttribute("cs",cs);
         model.addAttribute("page",page);
         return "admin/listCategory";
+    }
+
+    @RequestMapping(value = "/addCategory",method = RequestMethod.POST)
+    public void addCategory(Category c, HttpSession session, UploadedImageFile uploadedImageFile){
+        categoryService.addCategory(c);
+        File imageFile = new File(session.getServletContext().getRealPath("img/category"));
+        File file = new File(imageFile,c.getName()+".jpg");
+        if (!file.getParentFile().exists()){
+            file.getParentFile().mkdirs();
+            //// TODO: 2019/1/15
+        }
 
     }
 

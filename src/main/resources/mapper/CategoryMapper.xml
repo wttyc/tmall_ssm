@@ -11,9 +11,12 @@
         </if>
     </select>
 
-   <select id="total" resultType="int">
+    <select id="total" resultType="int">
        select count(*) from category
    </select>
-    
+
+    <insert id="addCategory" useGeneratedKeys="true" keyProperty="id" parameterType="Category">
+        insert into category(name) value(#{name})
+    </insert>
 
 </mapper>
